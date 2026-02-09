@@ -75,10 +75,10 @@ export default function Playground() {
       <div className="h-screen flex flex-col bg-neutral-950 text-neutral-200 selection:bg-violet-500/30 overflow-hidden">
         <main className="flex-1 flex flex-col md:flex-row overflow-hidden p-4 gap-4">
           
-          {/* Editor Pane (UNCHANGED) */}
+          {/* Editor Pane */}
           <div className="flex-1 flex flex-col bg-neutral-900/40 backdrop-blur-xl border border-white/5 rounded-3xl overflow-hidden transition-all duration-500 hover:border-violet-500/20">
             <div className="px-6 py-4 border-b border-white/5 bg-white/5 flex items-center justify-between">
-              <span className="text-xs font-mono text-neutral-500 flex items-center gap-2 uppercase tracking-widest font-bold">
+              <span className="text-xs font-mono text-neutral-500 flex items-center gap-2 tracking-widest font-bold">
                 <FileCode className="w-3 h-3" /> main.vel
               </span>
               <button
