@@ -42,7 +42,7 @@ Txt[Hello World!]`,
   // ================= Worker logic (UNCHANGED) =================
   useEffect(() => {
     workerRef.current = new Worker(
-      new URL("velvex.worker.js", import.meta.url),
+      new URL("/velvex.worker.js", import.meta.url),
     );
 
     workerRef.current.onmessage = (e) => {
