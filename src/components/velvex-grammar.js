@@ -6,7 +6,7 @@ Prism.languages.velvex = {
     greedy: true
   },
   'keyword': /\b(Frac|Pdiff|Integ|Sqrt|Matrix|Txt|Piecewise)\b/,
-  'operator': /[=\-+*/^]/,
+  'operator': /->|[=\-+*/^]/,
   'punctuation': /[\[\](),]/,
   'variable': /\b[a-z]\b/i,
   'string': {
@@ -14,7 +14,6 @@ Prism.languages.velvex = {
     inside: {
       'punctuation': /[\[\]]/,
       'inner-text': {
-        // Matches 'Txt[' followed by content, but skips 'Txt[' visually
         pattern: /(Txt\[)[\s\S]+?(?=\])/,
         lookbehind: true
       }
