@@ -115,7 +115,7 @@ Txt[Hello World!]`,
     return rawCode
       .replace(/\r/g, "") // 1. Remove carriage returns
       .replace(/\n/g, " \\n ") // 2. Map newlines to literal " \n "
-      .replace(/[+\-=*/()]/g, (match) => ` ${match} `); // 3. Isolate operators: +, -, =, *, /, (, )
+      .replace(/[+-=*/()]/g, (match) => ` ${match} `); // 3. Isolate operators: +, -, =, *, /, (, )
   };
 
   const handleRun = () => {
