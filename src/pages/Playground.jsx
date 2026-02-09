@@ -40,31 +40,75 @@ Txt[Hello World!]`,
   const workerRef = useRef(null);
 
   // ================= Worker logic (UNCHANGED) =================
+  // useEffect(() => {
+  //   workerRef.current = new Worker(
+  //     new URL("/velvex.worker.js", import.meta.url),
+  //   );
+
+  //   workerRef.current.onmessage = (e) => {
+  //     const { type, text } = e.data;
+  //     if (type === "stdout") {
+  //       setOutput((prev) => [...prev, { type: "out", text }]);
+  //     } else if (type === "stderr") {
+  //       setOutput((prev) => [
+  //         ...prev,
+  //         { type: "system", text: `Error: ${text}` },
+  //       ]);
+  //     } else if (type === "done") {
+  //       setIsCompiling(false);
+  //       setOutput((prev) => [
+  //         ...prev,
+  //         { type: "success", text: "Compilation successful" },
+  //       ]);
+  //     }
+  //   };
+
+  //   return () => workerRef.current?.terminate();
+  // }, []);
   useEffect(() => {
-    workerRef.current = new Worker(
-      new URL("/velvex.worker.js", import.meta.url),
-    );
+  // Create worker from /public (DO NOT use import.meta.url here)
+  const worker = new Worker("/velvex.worker.js", {
+    type: "classic", // important for importScripts + emscripten
+  });
 
-    workerRef.current.onmessage = (e) => {
-      const { type, text } = e.data;
-      if (type === "stdout") {
-        setOutput((prev) => [...prev, { type: "out", text }]);
-      } else if (type === "stderr") {
-        setOutput((prev) => [
-          ...prev,
-          { type: "system", text: `Error: ${text}` },
-        ]);
-      } else if (type === "done") {
-        setIsCompiling(false);
-        setOutput((prev) => [
-          ...prev,
-          { type: "success", text: "Compilation successful" },
-        ]);
-      }
-    };
+  workerRef.current = worker;
 
-    return () => workerRef.current?.terminate();
-  }, []);
+  worker.onmessage = (e) => {
+    const { type, text } = e.data;
+
+    if (type === "stdout") {
+      setOutput((prev) => [...prev, { type: "out", text }]);
+    } 
+    else if (type === "stderr") {
+      setOutput((prev) => [
+        ...prev,
+        { type: "system", text: `Error: ${text}` },
+      ]);
+    } 
+    else if (type === "done") {
+      setIsCompiling(false);
+      setOutput((prev) => [
+        ...prev,
+        { type: "success", text: "Compilation successful" },
+      ]);
+    }
+  };
+
+  worker.onerror = (err) => {
+    console.error("Worker error:", err);
+    setIsCompiling(false);
+    setOutput((prev) => [
+      ...prev,
+      { type: "system", text: "Worker crashed. Check console." },
+    ]);
+  };
+
+  return () => {
+    worker.terminate();
+    workerRef.current = null;
+  };
+}, []);
+
 
   // ================= Sanitizer (UNCHANGED) =================
   const sanitizeCode = (rawCode) => {
