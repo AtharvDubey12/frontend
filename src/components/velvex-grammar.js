@@ -6,7 +6,7 @@ Prism.languages.velvex = {
     greedy: true
   },
   'keyword': /\b(Frac|Pdiff|Integ|Sqrt|Matrix|Txt|Piecewise)\b/,
-  'operator': /->|[=\-+*/^]/,
+  'operator': /->|=>|[=\-+*/^]/,
   'punctuation': /[\[\](),]/,
   'variable': /\b[a-z]\b/i,
   'string': {
