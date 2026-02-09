@@ -118,6 +118,14 @@ Txt[Hello World!]`,
       .replace(/[+-=*/()]/g, (match) => ` ${match} `); // 3. Isolate operators: +, -, =, *, /, (, )
   };
 
+  const formatForKatex = (str) => {
+  if (!str) return "";
+  return str
+    .replace(/\\\\/g, "\\\\")  // Preserve double backslashes for line breaks
+    .replace(/\\ /g, "\\")      // Remove any trailing spaces after a backslash
+    .trim();
+};
+
   const handleRun = () => {
     if (isCompiling) return;
 
@@ -244,7 +252,7 @@ Txt[Hello World!]`,
                     {/* Render Logic: If output type is 'out' and mode is 'render', use KaTeX */}
                     {line.type === "out" && viewMode === "render" ? (
                       <div className="py-2 overflow-x-auto">
-                        <BlockMath math={line.text} />
+                        <BlockMath math={formatForKatex(line.text)} />
                       </div>
                     ) : (
                       <span className="whitespace-pre-wrap">{line.text}</span>
