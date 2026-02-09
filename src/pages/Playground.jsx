@@ -242,33 +242,39 @@ Txt[Hello World!]`,
               </button>
             </div>
 
-            <div className="flex-1 p-6 font-mono text-xs overflow-y-auto space-y-2 custom-scrollbar">
-              {output.map((line, i) => (
-                <div key={i} className="flex gap-3">
-                  {viewMode != "render" ? <span className="text-neutral-600 select-none">›</span> : <></>}
-                  
-                  <span
-                    className={
-                      line.type === "system"
-                        ? "text-neutral-500 italic"
-                        : line.type === "success"
-                          ? "text-violet-400 font-bold"
-                          : "text-white"
-                    }
-                  >
-                    {/* Render Logic: If output type is 'out' and mode is 'render', use KaTeX */}
-                    {line.type === "out" && viewMode === "render" ? (
-                      <div className="py-2 overflow-x-auto">
-                        <BlockMath math={formatForKatex(line.text)} />
-                      </div>
-                    ) : (
-                      <span className="whitespace-pre-wrap">{line.text}</span>
-                    )}
-                  </span>
-                </div>
-              ))}
+            <div className="flex-1 p-6 font-mono text-xs overflow-y-auto space-y-2 no-scrollbar">
+  {output.map((line, i) => {
+    // 🔍 PINPOINTED ERROR: We need to distinguish between 
+    // the source code and the actual transpiled LaTeX result.
+    
+    return (
+      <div key={i} className="flex gap-3">
+        {(viewMode === 'raw' || line.type !== 'out') && (
+          <span className="text-neutral-600 select-none">›</span>
+        )}
+
+        <span className={line.type === 'system' ? 'text-neutral-500 italic' : 'text-white'}>
+          {line.type === 'out' && viewMode === 'render' ? (
+            <div className="py-4 overflow-x-auto no-scrollbar bg-white/5 rounded-2xl px-6 my-2 border border-white/5 shadow-2xl">
+              {/* ✅ FIX: Ensure you are passing ONLY the LaTeX string here. 
+                  If your compiler output includes the source, you must 
+                  strip it or ensure the worker only sends the result. */}
+              <BlockMath 
+                math={formatForKatex(line.text)} 
+                renderError={(error) => {
+                  console.error("KaTeX failed on this string:", line.text);
+                  return <span className="text-red-500 font-mono text-[10px]">Invalid LaTeX: {line.text.substring(0, 20)}...</span>;
+                }}
+              />
             </div>
-          </div>
+          ) : (
+            <span className="whitespace-pre-wrap">{line.text}</span>
+          )}
+        </span>
+      </div>
+    );
+  })}
+</div>
 
           {/* Compiler Settings (UNCHANGED) */}
           <div className="bg-neutral-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6">
