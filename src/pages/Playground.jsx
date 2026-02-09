@@ -219,7 +219,7 @@ Txt[Hello World!]`,
                     {/* Render Logic: If output type is 'out' and mode is 'render', use KaTeX */}
                     {line.type === "out" && viewMode === "render" ? (
                       <div className="py-2 overflow-x-auto">
-                        <BlockMath math={line.text} />
+                        {line.text}
                       </div>
                     ) : (
                       <span className="whitespace-pre-wrap">{line.text}</span>
