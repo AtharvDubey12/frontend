@@ -1,5 +1,5 @@
 import Prism from 'prismjs';
-
+// TODO: Add more operators.
 Prism.languages.velvex = {
   'comment': {
     pattern: /Ignore\[[\s\S]*?\]/,
