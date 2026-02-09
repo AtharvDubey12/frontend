@@ -121,8 +121,8 @@ Txt[Hello World!]`,
   const formatForKatex = (str) => {
   if (!str) return "";
   return str
-    .replace(/\\\\/g, "\\\\")  // Preserve double backslashes for line breaks
-    .replace(/\\ /g, "\\")      // Remove any trailing spaces after a backslash
+    .replace(/\\/g, "\\\\") // 🚀 CRITICAL: Double-escape every single backslash
+    .replace(/\\\\\\\\/g, "\\\\") // Fix double-escaping for your manual \\ handshakes
     .trim();
 };
 
