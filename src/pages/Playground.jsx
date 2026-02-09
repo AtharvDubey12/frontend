@@ -118,21 +118,6 @@ Txt[Hello World!]`,
       .replace(/[+-=*/()]/g, (match) => ` ${match} `); // 3. Isolate operators: +, -, =, *, /, (, )
   };
 
-  const formatForKatex = (str) => {
-  if (!str) return "";
-  
-  const formatted = str
-    .replace(/\\/g, "\\\\")      // Double-escape for React safety
-    .replace(/\\\\\\\\/g, "\\\\") // Prevent quadruple-escaping the \\ handshake
-    .trim();
-
-  // 🔍 LOG 1: Compare the input vs output of the formatter
-  console.log("DEBUG: Raw from Compiler:", JSON.stringify(str));
-  console.log("DEBUG: Sent to KaTeX Component:", JSON.stringify(formatted));
-
-  return formatted;
-};
-
   const handleRun = () => {
     if (isCompiling) return;
 
@@ -260,7 +245,7 @@ Txt[Hello World!]`,
                   If your compiler output includes the source, you must 
                   strip it or ensure the worker only sends the result. */}
               <BlockMath 
-                math={formatForKatex(line.text)} 
+                math={line.text} 
                 renderError={(error) => {
                   console.error("KaTeX failed on this string:", line.text);
                   return <span className="text-red-500 font-mono text-[10px]">Invalid LaTeX: {line.text.substring(0, 20)}...</span>;
