@@ -120,10 +120,17 @@ Txt[Hello World!]`,
 
   const formatForKatex = (str) => {
   if (!str) return "";
-  return str
-    .replace(/\\/g, "\\\\") // 🚀 CRITICAL: Double-escape every single backslash
-    .replace(/\\\\\\\\/g, "\\\\") // Fix double-escaping for your manual \\ handshakes
+  
+  const formatted = str
+    .replace(/\\/g, "\\\\")      // Double-escape for React safety
+    .replace(/\\\\\\\\/g, "\\\\") // Prevent quadruple-escaping the \\ handshake
     .trim();
+
+  // 🔍 LOG 1: Compare the input vs output of the formatter
+  console.log("DEBUG: Raw from Compiler:", JSON.stringify(str));
+  console.log("DEBUG: Sent to KaTeX Component:", JSON.stringify(formatted));
+
+  return formatted;
 };
 
   const handleRun = () => {
