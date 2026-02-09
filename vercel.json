@@ -13,5 +13,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/|velvex|favicon|vite|logo|.*\\.).*)",
+      "destination": "/index.html"
+    }
   ]
 }
