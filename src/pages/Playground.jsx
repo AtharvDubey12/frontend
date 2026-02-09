@@ -59,7 +59,7 @@ export default function Playground() {
     return rawCode
       .replace(/\r/g, "")
       .replace(/\n/g, " \\n ")
-      .replace(/[+-=*/()]/g, (match) => ` ${match} `);
+      .replace(/([+=*/()])|(-(?!>))/g, (match) => ` ${match} `);
   };
 
   const handleRun = () => {
