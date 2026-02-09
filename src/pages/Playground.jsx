@@ -59,7 +59,8 @@ const sanitizeCode = (rawCode) => {
   return rawCode
     .replace(/\r/g, "")
     .replace(/\n/g, " \\n ")
-    .replace(/(->|=>|[+*/()]|-(?!>)|=(?!>))/g, (match) => ` ${match} `);
+    .replace(/\^/g, " ^") // absent from main desktop funnel (TODO: Add it later)
+    .replace(/(->|=>|!=|[+*/()]|-(?!>)|(?<![!=])=(?!>))/g, (match) => ` ${match} `);
 };
 
   const handleRun = () => {
