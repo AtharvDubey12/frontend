@@ -1,12 +1,12 @@
 import Prism from 'prismjs';
-
+// TODO: Add more operators.
 Prism.languages.velvex = {
   'comment': {
     pattern: /Ignore\[[\s\S]*?\]/,
     greedy: true
   },
-  'keyword': /\b(Frac|Pdiff|Integ|Sqrt|Matrix|Txt|Piecewise)\b/,
-  'operator': /[=\-+*/^]/,
+  'keyword': /\b(Frac|Pdiff|Diff|Integ|Sqrt|Matrix|Txt|Piecewise|Taylor|Inf|Bold|Omega|Om|__|Zeta)\b/,
+  "operator": /->|=>|[=+*/^_-]/,
   'punctuation': /[\[\](),]/,
   'variable': /\b[a-z]\b/i,
   'string': {
@@ -14,10 +14,10 @@ Prism.languages.velvex = {
     inside: {
       'punctuation': /[\[\]]/,
       'inner-text': {
-        // Matches 'Txt[' followed by content, but skips 'Txt[' visually
         pattern: /(Txt\[)[\s\S]+?(?=\])/,
         lookbehind: true
       }
     }
   }
 };
+Prism.languages.velvet = Prism.languages.velvex;

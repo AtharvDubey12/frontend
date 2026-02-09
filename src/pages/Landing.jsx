@@ -166,21 +166,21 @@ end`;
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/download"
-              className="bg-white text-black hover:bg-neutral-200 px-10 py-4 rounded-2xl transition-all font-bold flex items-center gap-2 shadow-xl shadow-white/5 active:scale-95"
+              className="bg-white text-black hover:bg-neutral-200 px-10 py-4 rounded-lg transition-all font-bold flex items-center gap-2 shadow-xl shadow-white/5 active:scale-95"
             >
               <Download className="w-5 h-5" />
               Download
             </Link>
             <Link
               to="/playground"
-              className="bg-neutral-900/50 hover:bg-neutral-800 text-white border border-white/10 px-10 py-4 rounded-2xl transition-all font-bold flex items-center gap-2 backdrop-blur-xl active:scale-95"
+              className="bg-neutral-900/50 hover:bg-neutral-800 text-white border border-white/10 px-10 py-4 rounded-lg transition-all font-bold flex items-center gap-2 backdrop-blur-xl active:scale-95"
             >
               <PlaygroundIcon className="w-5 h-5 text-violet-400" />
               Try in Browser
             </Link>
             <Link
               to="/docs"
-              className="bg-violet-900/20 hover:bg-violet-900/40 text-white border border-white/10 px-10 py-4 rounded-2xl transition-all font-bold flex items-center gap-2 backdrop-blur-xl active:scale-95"
+              className="bg-violet-900/20 hover:bg-violet-900/40 text-white border border-white/10 px-10 py-4 rounded-lg transition-all font-bold flex items-center gap-2 backdrop-blur-xl active:scale-95"
             >
               <Terminal className="w-5 h-5 text-violet-400" />
               Learn Velvet
