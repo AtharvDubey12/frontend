@@ -55,12 +55,12 @@ export default function Playground() {
     return () => worker.terminate();
   }, []);
 
-  const sanitizeCode = (rawCode) => {
-    return rawCode
-      .replace(/\r/g, "")
-      .replace(/\n/g, " \\n ")
-      .replace(/([+=*/()])|(-(?!>))/g, (match) => ` ${match} `);
-  };
+const sanitizeCode = (rawCode) => {
+  return rawCode
+    .replace(/\r/g, "")
+    .replace(/\n/g, " \\n ")
+    .replace(/(->|=>|[+*/()]|-(?!>)|=(?!>))/g, (match) => ` ${match} `);
+};
 
   const handleRun = () => {
     if (isCompiling) return;
