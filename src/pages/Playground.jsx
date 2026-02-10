@@ -40,7 +40,6 @@ export default function Playground() {
       const { type, text } = e.data;
       
       if (type === "stdout") {
-        // ✅ Keeps the console printing line-by-line as it arrives
         setOutput((prev) => [...prev, { type: "out", text }]);
       } 
       else if (type === "stderr") {

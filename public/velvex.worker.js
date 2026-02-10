@@ -41,7 +41,6 @@ self.onmessage = async (e) => {
       initializing = true;
 
       compilerModule = await self.createVelvexModule({
-        // Force correct WASM path on Vercel/CDN
         locateFile: (path) => {
           if (path.endsWith(".wasm")) {
             return "/velvex_compiler.wasm";
