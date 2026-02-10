@@ -31,10 +31,10 @@ Txt[Let there be defined a function:]
 
 g(x,y) = Frac[(xy - 1)][(x + 1)(x + 2)]
 
-Txt[Then:] __ Pdiff[2][g(x)][x,y] = 0
+Txt[Then:] __ Pdiff[2][g(x,y)][x,y] = 0
 
 ```
-Translates to: 
+Translates to LaTeX via **Velvex**: 
 ```LaTeX
 \\ 
 \text{The taylor series is written as:}  \\ 
@@ -45,5 +45,18 @@ f\left(x\right) = \sum_{n=0}^{\infty} \frac{f^{\left(n\right)}\left(y\right)}{n!
  \\ 
  g \left( x,y \right)  =\frac{\left( xy - 1 \right)}{\left( x + 1 \right) \left( x + 2 \right)} \\ 
  \\ 
-\text{Then:}  \,\,\,  \frac{\partial^2 g \left( x \right)}{\partial x \partial y} = 0
+\text{Then:}  \,\,\,  \frac{\partial^2 g \left( x, y \right)}{\partial x \partial y} = 0
+```
+Which in turn, renders as:
+```math
+\\ 
+\text{The taylor series is written as:}  \\ 
+ \\ 
+f\left(x\right) = \sum_{n=0}^{\infty} \frac{f^{\left(n\right)}\left(y\right)}{n!} \,\left(x-y\right)^n  \\ 
+ \\ 
+\text{Let there be defined a function:}  \\ 
+ \\ 
+ g \left( x,y \right)  =\frac{\left( xy - 1 \right)}{\left( x + 1 \right) \left( x + 2 \right)} \\ 
+ \\ 
+\text{Then:}  \,\,\,  \frac{\partial^2 g \left( x, y \right)}{\partial x \partial y} = 0
 ```
