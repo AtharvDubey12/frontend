@@ -19,7 +19,7 @@ const slugify = (text) =>
     .replace(/\s+/g, "-")
     .trim();
 
-// ✅ ADDITIVE: safely extract text from React children
+// Safely extract text from React children
 const getTextFromChildren = (children) => {
   if (typeof children === "string") return children;
   if (Array.isArray(children))
@@ -30,43 +30,11 @@ const getTextFromChildren = (children) => {
 };
 
 // ----------------------------------
-// Table of Contents Component
-// ----------------------------------
-function TableOfContents({ headings, activeId }) {
-  return (
-    <div className="sticky top-24 space-y-3 text-sm">
-      <div className="text-xs tracking-widest text-neutral-500 uppercase mb-4">
-        On this page
-      </div>
-
-      {headings.map(({ id, text, level }) => (
-        <a
-          key={id}
-          href={`#${id}`}
-          className={`block transition-colors ${
-            activeId === id
-              ? "text-violet-400 font-semibold"
-              : "text-neutral-400 hover:text-neutral-200"
-          }`}
-          style={{ paddingLeft: (level - 1) * 12 }}
-        >
-          {text}
-        </a>
-      ))}
-    </div>
-  );
-}
-
-// ----------------------------------
 // Main Page
 // ----------------------------------
 export default function DocPage() {
   const { section, id } = useParams();
   const [content, setContent] = useState("");
-
-  // 🔹 TOC state
-  const [headings, setHeadings] = useState([]);
-  const [activeId, setActiveId] = useState(null);
 
   useEffect(() => {
     const loadContent = async () => {
@@ -80,71 +48,13 @@ export default function DocPage() {
     loadContent();
   }, [section, id]);
 
-  // reset headings on page change
-  useEffect(() => {
-    setHeadings([]);
-  }, [content]);
-
-  // ----------------------------------
-  // Scroll Spy
-  // ----------------------------------
-  useEffect(() => {
-  if (!headings.length) return;
-
-  const visible = new Map();
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          visible.set(entry.target.id, entry.boundingClientRect.top);
-        } else {
-          visible.delete(entry.target.id);
-        }
-      });
-
-      if (visible.size > 0) {
-        // pick the heading closest to the top
-        const active = [...visible.entries()].sort(
-          (a, b) => Math.abs(a[1]) - Math.abs(b[1])
-        )[0][0];
-
-        setActiveId(active);
-      }
-    },
-    {
-      rootMargin: "-20% 0px -70% 0px",
-      threshold: 0,
-    }
-  );
-
-  headings.forEach(({ id }) => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-
-  return () => observer.disconnect();
-}, [headings]);
-
-
   // ----------------------------------
   // Markdown Components
   // ----------------------------------
-  const registerHeading = (level, text) => {
-    const id = slugify(text);
-
-    setHeadings((prev) => {
-      if (prev.find((h) => h.id === id)) return prev;
-      return [...prev, { id, text, level }];
-    });
-
-    return id;
-  };
-
   const components = {
     h1: ({ children }) => {
-      const text = getTextFromChildren(children); // ✅ FIX
-      const id = registerHeading(1, text);
+      const text = getTextFromChildren(children);
+      const id = slugify(text);
       return (
         <h1
           id={id}
@@ -155,8 +65,8 @@ export default function DocPage() {
       );
     },
     h2: ({ children }) => {
-      const text = getTextFromChildren(children); // ✅ FIX
-      const id = registerHeading(2, text);
+      const text = getTextFromChildren(children);
+      const id = slugify(text);
       return (
         <h2
           id={id}
@@ -167,8 +77,8 @@ export default function DocPage() {
       );
     },
     h3: ({ children }) => {
-      const text = getTextFromChildren(children); // ✅ FIX
-      const id = registerHeading(3, text);
+      const text = getTextFromChildren(children);
+      const id = slugify(text);
       return (
         <h3
           id={id}
@@ -266,16 +176,12 @@ export default function DocPage() {
   // Layout
   // ----------------------------------
   return (
-    <div className="max-w-7xl mx-auto grid grid-cols-[1fr_260px] gap-12">
+    <div className="max-w-7xl mx-auto">
       <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
           {content}
         </ReactMarkdown>
       </div>
-
-      <aside className="hidden lg:block">
-        <TableOfContents headings={headings} activeId={activeId} />
-      </aside>
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function Docs() {
       <div className="max-w-[1600px] mx-auto flex">
 
         {/* ================= LEFT SIDEBAR ================= */}
-        <aside className="hidden lg:flex flex-col w-72 h-[calc(100vh-80px)] sticky top-20 border-r border-white/5 p-6 overflow-y-auto">
+        <aside className="hidden lg:flex flex-col w-72 z-10 h-[calc(100vh-80px)] sticky top-20 border-r border-white/5 p-6 overflow-y-auto">
           <div className="relative mb-8">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
             <input
@@ -52,7 +52,7 @@ export default function Docs() {
         </aside>
 
         {/* ================= CENTER CONTENT ================= */}
-        <main className="flex-1 px-6 py-12 md:px-12 lg:px-20 max-w-full min-h-screen">
+        <main style={{minWidth: 0}} className="flex-1 px-6 py-12 md:px-12 lg:px-20 z-1 max-w-full min-h-screen">
           {/* Breadcrumbs */}
           <div className="mb-4 flex items-center gap-2 text-sm text-neutral-500 font-medium capitalize">
             <span>Docs</span>
@@ -67,6 +67,39 @@ export default function Docs() {
         </main>
 
         {/* ================= RIGHT SIDEBAR (TOC) ================= */}
+<aside className="hidden xl:block w-64 shrink-0 h-[calc(100vh-80px)] sticky top-20 p-8">
+  <h4 className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-6">
+    On this page
+  </h4>
+
+  <ul className="space-y-3 text-sm">
+    {toc.length === 0 ? (
+      // skeleton placeholder
+      <>
+        <li className="h-3 w-32 bg-white/5 rounded" />
+        <li className="h-3 w-40 bg-white/5 rounded" />
+        <li className="h-3 w-28 bg-white/5 rounded" />
+      </>
+    ) : (
+      toc.map(({ id, text, level }) => (
+        <li
+          key={id}
+          style={{ paddingLeft: (level - 1) * 12 }}
+          className="cursor-pointer text-neutral-500 hover:text-neutral-200 transition-colors"
+          onClick={() =>
+            document.getElementById(id)?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            })
+          }
+        >
+          {text}
+        </li>
+      ))
+    )}
+  </ul>
+</aside>
+
         
       </div>
     </div>
