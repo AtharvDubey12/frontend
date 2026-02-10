@@ -88,21 +88,29 @@ renders:
 ```math
 \Rightarrow \frac{x}{2} = \frac{4}{2}
 ```
-
+---
 ### Differentials
 Differentials can be defined with the function **Diff**.
 
 ```Velvet
-Diff[degree][main function][comma separated secondary functions list]
+Diff[degree][main expression][comma separated secondary expressions list]
 ```
 
-**Degree**: Represents the order of differential, it must be a positive integer (floating point numbers are rounded down to the nearest integer) as this determines how many functions the denominator would contain.
+**Degree**: Represents the order of differential, it must be a positive integer (floating point numbers are rounded down to the nearest integer) as this determines how many distinct expressions the denominator would contain.
 > Note: If the degree is one (1), it is not necessary to write the [degree] segment explicity.
 
-**Main Function**: This is the function that is to be differentiated.
+**Main Expression**: This is the Expression that is to be differentiated.
 
-**Secondary Functions (comma separated)**: If the degree is greater than 1, then corresponding functions can be passed to the last segment separated by a comma ',' in order [1st, 2nd, 3rd, ...]. If the degree is greater than the list of secondary functions, then the last function will be used to pad the missing functions. 
+**Secondary Functions (comma separated)**: If the degree is greater than 1, then corresponding functions can be passed to the last segment separated by a comma ',' in order [1st, 2nd, 3rd, ...]. If the degree is greater than the list of secondary expressions, then the last expression will be used to pad the missing expressions. 
 
+```Velvet
+Diff[2][f(x,y)][y,x]
+```
+renders:
+```math
+\frac{d^2 f(x,y)}{dydx}
+```
+and, 
 ```Velvet
 Diff[2][f(x,y)][y]
 ```
@@ -110,6 +118,19 @@ renders:
 ```math
 \frac{d^2 f(x,y)}{dy^2}
 ```
+> **Note**: expression 'y' was used to pad for the remaining expression. Use this property to avoid repeating expressions
+---
+```velvet
+Ignore[It is not necessary to write degree segment if degree = 1]
+
+Diff[1][y][x] = Diff[y][x]
+```
+simply renders:
+```math
+\frac{dy}{dx} = \frac{dy}{dx}
+```
+
+>> Note: **Diff[][y][x]** is also equivalent to **Diff[y][x]**, but is not recommended due to lesser readability. Rather use the modern syntax and avoid degree segment entirely if degree is 1.
 
 ### **Next Steps**
 Ready to dive deeper? Check out the **[Type System](/docs/core-concepts/type-system)** to see how Velvet handles complex mathematical sets and spaces.
