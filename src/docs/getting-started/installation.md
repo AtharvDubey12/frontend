@@ -76,7 +76,7 @@ self.onmessage = async (e) => {
 
 ---
 
-## 🚀 Testing Your First Script
+## Testing Your First Script
 Once installed, create a file named **test.vel** and paste this simple snippet:
 
 ```velvet
