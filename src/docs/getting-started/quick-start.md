@@ -43,7 +43,7 @@ Txt[The result of the derivation is:] __ f(42) = Integ[1][1][x][0->42] = 42
 
 > **Pro Tip**: Inside **Ignore[]**, you can nest other commands inside it if you want to temporarily "comment out" a block of Velvet code without deleting it.
 ---
-> **Note:**: "**__**" is a keyword thats equivalent to "\\,\\,\\," in LaTeX, it is used to add a small gap between two objects.
+> **Note**: "**__**" is a keyword thats equivalent to "\\,\\,\\," in LaTeX, it is used to add a small gap between two objects.
 
 ```velvet
 Txt[Hello] Txt[World]
@@ -61,6 +61,15 @@ Txt[Hello] __ Txt[World]
 
 ```math
 \text{Hello} \,\,\, \text{World}
+```
+
+> **Warning**: for **"__"** to work correctly, there must exist **atleast 1 space before and after** the symbol.
+
+```Velvet
+Txt[This is]__Txt[Incorrect! as "__" doesn't have leading and preceeding space. This will give a garbage result]
+```
+```Velvet
+Txt[This is] __ Txt[Correct as "__" must be used as " __ "]
 ```
 
 
