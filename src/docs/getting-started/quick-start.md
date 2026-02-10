@@ -66,7 +66,7 @@ Txt[Hello] __ Txt[World]
 > **Warning**: for **"__"** to work correctly, there must exist **atleast 1 space before and after** the symbol.
 
 ```Velvet
-Txt[This is]__Txt[Incorrect! as "__" doesn't have leading and preceeding space. This will give a garbage result]
+Txt[This is]__Txt[Incorrect! as "__" doesn't have a leading and preceeding space. This will give a garbage result]
 ```
 ```Velvet
 Txt[This is] __ Txt[Correct as "__" must be used as " __ "]
