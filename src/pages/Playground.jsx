@@ -59,9 +59,13 @@ const sanitizeCode = (rawCode) => {
   return rawCode
     .replace(/\r/g, "")
     .replace(/\n/g, " \\n ")
+<<<<<<< HEAD
     .replace(/\^/g, " ^") // absent from main desktop funnel
     //  Logic: Match '->', '=>', or '!=' first. 
     // Otherwise, match single operators, or '-' and '=' ONLY if they aren't part of an arrow or inequality.
+=======
+    .replace(/\^/g, " ^") // absent from main desktop funnel (TODO: Add it later)
+>>>>>>> f086d1669a0a940af256ed01b4b31244e2532bd2
     .replace(/(->|=>|!=|[+*/()]|-(?!>)|(?<![!=])=(?!>))/g, (match) => ` ${match} `);
 };
 
@@ -87,7 +91,11 @@ const sanitizeCode = (rawCode) => {
               <button
                 onClick={handleRun}
                 disabled={isCompiling}
+<<<<<<< HEAD
                 className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+=======
+                className={`flex items-center gap-2 px-6 py-2 rounded-xl text-sm font-bold transition-all ${
+>>>>>>> f086d1669a0a940af256ed01b4b31244e2532bd2
                   isCompiling ? "bg-neutral-800 text-neutral-500" : "bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-600/20"
                 }`}
               >
@@ -132,7 +140,11 @@ const sanitizeCode = (rawCode) => {
               </div>
 
               <div className="flex-1 p-6 font-mono text-xs overflow-y-auto space-y-2 no-scrollbar">
+<<<<<<< HEAD
                 {/* Logic: Show line-by-line if RAW, show single aggregated block if RENDER */}
+=======
+                {/* 🛠️ Logic: Show line-by-line if RAW, show single aggregated block if RENDER */}
+>>>>>>> f086d1669a0a940af256ed01b4b31244e2532bd2
                 {viewMode === 'render' ? (
                   <>
                     {/* Render system/meta messages first */}
@@ -152,7 +164,11 @@ const sanitizeCode = (rawCode) => {
                     )}
                   </>
                 ) : (
+<<<<<<< HEAD
                   //  Traditional Line-by-Line for RAW mode
+=======
+                  // ✅ Traditional Line-by-Line for RAW mode
+>>>>>>> f086d1669a0a940af256ed01b4b31244e2532bd2
                   output.map((line, i) => (
                     <div key={i} className="flex gap-3">
                       <span className="text-neutral-600 select-none">›</span>

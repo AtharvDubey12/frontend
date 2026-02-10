@@ -20,4 +20,3 @@ Prism.languages.velvex = {
     }
   }
 };
-Prism.languages.velvet = Prism.languages.velvex;
