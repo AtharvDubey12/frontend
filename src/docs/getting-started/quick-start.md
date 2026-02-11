@@ -74,7 +74,6 @@ Txt[This is] __ Txt[Correct as "__" must be used as " __ "]
 
 
 ---
-
 ## 2. Core Mathematical Functions
 Here are some of the most essential functions of Velvet:
 
@@ -90,7 +89,7 @@ renders:
 ```
 ---
 ### Differentials
-Differentials can be defined with the function **Diff**.
+Differentials can be defined with the function **Diff**, where as partial differentials are defined with **Pdiff**. The **Pdiff** function is idential to **Diff** in terms of features and capabilities. Below examples are written for **Diff**, however they work the same for **Pdiff** too.
 
 ```Velvet
 Diff[degree][main expression][comma separated secondary expressions list]
@@ -101,7 +100,7 @@ Diff[degree][main expression][comma separated secondary expressions list]
 
 **Main Expression**: This is the Expression that is to be differentiated.
 
-**Secondary Expression(s) (comma separated)**: If the degree is greater than 1, then corresponding functions can be passed to the last segment separated by a comma ',' in order [1st, 2nd, 3rd, ...]. If the degree is greater than the list of secondary expressions, then the last expression will be used to pad the missing expressions. 
+**Secondary Expression(s) (comma separated)**: If the degree is greater than 1, then corresponding functions can be passed to the last segment separated by a comma ',' in order [1st, 2nd, 3rd, ...]. If the degree is greater than the list of secondary expressions, then the last expression will be used to pad the missing entries. 
 
 ```Velvet
 Diff[2][f(x,y)][y,x]
@@ -131,6 +130,18 @@ simply renders:
 ```
 
 >> Note: **Diff[][y][x]** is also equivalent to **Diff[y][x]**, but is not recommended due to lesser readability. Rather use the modern syntax and avoid degree segment entirely if degree is 1.
+---
+### Advanced Usage of Differentials
+For finer control over the differential like non integer degrees, the **Diff** / **Pdiff** can be used as:
+
+```velvet
+Diff[^n f(x,y)][y^2,x^[n-2]] __ Txt[and] __ Pdiff[^n f(x,y)][y^2,x^[n-2]]
+```
+```math
+\frac{d^n f \left( x,y \right)}{dy ^2 dx^{ n - 2}} \,\,\, \text{and}  \,\,\,  \frac{\partial ^n f \left( x,y \right)}{\partial y ^2 \partial x^{ n - 2}}
+```
+---
+### Integrals
 
 ### **Next Steps**
 Ready to dive deeper? Check out the **[Type System](/docs/core-concepts/type-system)** to see how Velvet handles complex mathematical sets and spaces.

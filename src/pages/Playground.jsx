@@ -55,14 +55,116 @@ export default function Playground() {
   }, []);
 
 const sanitizeCode = (rawCode) => {
-  return rawCode
-    .replace(/\r/g, "")
-    .replace(/\n/g, " \\n ")
-    .replace(/\^/g, " ^") // absent from main desktop funnel
-    //  Logic: Match '->', '=>', or '!=' first. 
-    // Otherwise, match single operators, or '-' and '=' ONLY if they aren't part of an arrow or inequality.
-    .replace(/(->|=>|!=|[+*/()]|-(?!>)|(?<![!=])=(?!>))/g, (match) => ` ${match} `);
+  let escaped = "";
+
+  for (let i = 0; i < rawCode.length; i++) {
+    const c = rawCode[i];
+    const next = i + 1 < rawCode.length ? rawCode[i + 1] : "\0";
+    const next2 = i + 2 < rawCode.length ? rawCode[i + 2] : "\0";
+    const prev = i > 0 ? rawCode[i - 1] : "\0";
+
+    // 1. Carriage returns
+    if (c === "\r") continue;
+
+    // 2. Newlines
+    if (c === "\n") {
+      escaped += " \\n ";
+      continue;
+    }
+
+    // 3. Double quotes
+    if (c === '"') {
+      escaped += '\\"';
+      continue;
+    }
+
+    // 4. "__" must remain untouched
+    if (c === "_" && next === "_") {
+      escaped += "__";
+      i += 1;
+      continue;
+    }
+
+    // 5. Caret
+    if (c === "^") {
+      escaped += " ^";
+      continue;
+    }
+
+    // 6. Single "_"
+    if (c === "_") {
+      escaped += " _";
+      continue;
+    }
+
+    // ===============================
+    // ATOMIC MULTI-CHAR OPERATORS
+    // ===============================
+
+    // 3-character operators
+    if (c === "!" && next === "~" && next2 === "=") {
+      escaped += " !~= ";
+      i += 2;
+    }
+    else if (c === "<" && next === "=" && next2 === ">") {
+      escaped += " <=> ";
+      i += 2;
+    }
+
+    // 2-character operators
+    else if (c === "=" && next === "=") {
+      escaped += " == ";
+      i += 1;
+    }
+    else if (c === "~" && next === "=") {
+      escaped += " ~= ";
+      i += 1;
+    }
+    else if (c === "<" && next === "=") {
+      escaped += " <= ";
+      i += 1;
+    }
+    else if (c === ">" && next === "=") {
+      escaped += " >= ";
+      i += 1;
+    }
+    else if (c === "-" && next === ">") {
+      escaped += " -> ";
+      i += 1;
+    }
+    else if (c === "=" && next === ">") {
+      escaped += " => ";
+      i += 1;
+    }
+    else if (c === "!" && next === "=") {
+      escaped += " != ";
+      i += 1;
+    }
+
+    // ===============================
+    // Single operators
+    // ===============================
+    else if (
+      c === "+" ||
+      c === "*" ||
+      c === "/" ||
+      c === "(" ||
+      c === ")" ||
+      (c === "-" && next !== ">") ||
+      (c === "=" && next !== ">" && next !== "=" && prev !== "!" && prev !== "=")
+    ) {
+      escaped += " " + c + " ";
+    }
+
+    // Default
+    else {
+      escaped += c;
+    }
+  }
+
+  return escaped;
 };
+
 
   const handleRun = () => {
     if (isCompiling) return;
