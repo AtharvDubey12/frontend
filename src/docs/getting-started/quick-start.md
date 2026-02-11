@@ -101,7 +101,7 @@ Diff[degree][main expression][comma separated secondary expressions list]
 
 **Main Expression**: This is the Expression that is to be differentiated.
 
-**Secondary Functions (comma separated)**: If the degree is greater than 1, then corresponding functions can be passed to the last segment separated by a comma ',' in order [1st, 2nd, 3rd, ...]. If the degree is greater than the list of secondary expressions, then the last expression will be used to pad the missing expressions. 
+**Secondary Expression(s) (comma separated)**: If the degree is greater than 1, then corresponding functions can be passed to the last segment separated by a comma ',' in order [1st, 2nd, 3rd, ...]. If the degree is greater than the list of secondary expressions, then the last expression will be used to pad the missing expressions. 
 
 ```Velvet
 Diff[2][f(x,y)][y,x]

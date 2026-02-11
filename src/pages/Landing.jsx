@@ -204,7 +204,7 @@ end`;
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20">
             <div className="max-w-2xl">
               <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 text-white">
-                Built for Academics.
+                Built for Smooth Experience.
               </h2>
               <p className="text-lg text-neutral-500 font-medium">
                 Stop wrestling with macros and environments. Focus on the proof,
@@ -223,7 +223,7 @@ end`;
           <div className="grid md:grid-cols-3 gap-6">
             <FeatureItem
               icon={<Zap className="w-6 h-6 text-amber-400" />}
-              title="Instant Compilation"
+              title="Ultra Fast Compilation"
               desc="Optimized C++ based compiler provides sub-millisecond parsing and instant diagnostics."
             />
             <FeatureItem
@@ -244,7 +244,7 @@ end`;
             <FeatureItem
               icon={<Cpu className="w-6 h-6 text-indigo-400" />}
               title="Multiplatform Support"
-              desc="Velvex, the Velvet compiler, is available for Windows and Linux."
+              desc="Velvex, the Velvet compiler, is available for Windows and Linux. Moreover, it is also available as a WASM binary."
             />
             <FeatureItem
               icon={<Github className="w-6 h-6 text-white" />}
