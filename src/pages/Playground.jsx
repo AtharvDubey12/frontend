@@ -161,7 +161,6 @@ const sanitizeCode = (rawCode) => {
       escaped += c;
     }
   }
-console.log(escaped);
   return escaped;
   
 };

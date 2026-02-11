@@ -27,7 +27,7 @@
 
 // Load the Emscripten glue code (served from /public)
 importScripts("/velvex_compiler.js");
-
+  console.log("WORKER CREATED");
 let compilerModule = null;
 let initializing = false;
 
