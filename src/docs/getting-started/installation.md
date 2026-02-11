@@ -24,7 +24,7 @@ Open your terminal or command prompt and type the following:
 ```PowerShell
 velvex --version
 ```
-> **Note**: If you see the version number (e.g., Velvex v1.2.0), you are ready to go!
+> **Note**: If you see the version number (e.g., velvex version 1.2.0 LTS / Nightly), you are ready to go!
 
 ---
 
