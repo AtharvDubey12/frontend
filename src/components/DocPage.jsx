@@ -58,7 +58,7 @@ export default function DocPage() {
       return (
         <h1
           id={id}
-          className="text-5xl font-bold tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400"
+          className="text-5xl font-bold tracking-tight mb-8 bg-clip-text text-transparent bg-linear-to-b from-white to-neutral-400"
         >
           {children}
         </h1>

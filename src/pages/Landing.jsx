@@ -20,22 +20,6 @@ import { motion } from "framer-motion"; // Required for animated curves
 import VelvexShowcase from "../components/VelvexShowcase";
 
 export default function VelvexLanding() {
-  const velvetCode = `def theorem fibonacci(n: Nat):
-  F(0) = 0
-  F(1) = 1
-  F(n) = F(n-1) + F(n-2)
-  
-proof by induction on n
-end`;
-
-  const latexCode = `\\begin{theorem}
-  \\text{For all } n \\in \\mathbb{N}:
-  \\begin{cases}
-    F(0) = 0 \\\\
-    F(1) = 1 \\\\
-    F(n) = F(n-1) + F(n-2)
-  \\end{cases}
-\\end{theorem}`;
 
   return (
     <div className="min-h-screen bg-neutral-950 text-gray-100 selection:bg-violet-500/30 font-sans">

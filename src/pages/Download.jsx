@@ -1,249 +1,204 @@
-import React, { useState } from "react";
-import {
-  Download,
-  ChevronDown,
-  Terminal,
-  Package,
-  FileCode,
-  Github,
-  Book,
-  ExternalLink,
-  Cpu,
-  ShieldCheck,
+import React, { useState, useRef, useEffect } from "react";
+import { 
+  Download, 
+  ChevronDown, 
+  ShieldCheck, 
   Zap,
+  Monitor, 
+  Cpu, 
+  Globe, 
+  Terminal,
+  Check, 
   Copy,
-  Check
+  ShieldAlert
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 
 export default function VelvexDownloads() {
-  const [selectedOS, setSelectedOS] = useState("windows");
-  const [copied, setCopied] = useState("");
+  const [ltsPlatform, setLtsPlatform] = useState({ id: "windows", label: "Windows", icon: <Monitor className="w-5 h-5" /> });
+  const [nightlyPlatform, setNightlyPlatform] = useState({ id: "windows", label: "Windows", icon: <Monitor className="w-5 h-5" /> });
+  const [isLtsOpen, setIsLtsOpen] = useState(false);
+  const [isNightlyOpen, setIsNightlyOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    setCopied(text);
-    setTimeout(() => setCopied(""), 2000);
+  const platforms = [
+    { id: "windows", label: "Windows", sub: "x64 Installer", icon: <Monitor className="w-5 h-5" /> },
+    { id: "linux", label: "Linux", sub: "x64 Binary", icon: <Cpu className="w-5 h-5" /> },
+    { id: "wasm", label: "WASM SDK", sub: "Web Bundle", icon: <Globe className="w-5 h-5" /> },
+  ];
+
+  const copyCmd = () => {
+    navigator.clipboard.writeText("velvex --version");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-gray-200 selection:bg-violet-500/30 font-sans">
-      {/* Background Decorative Glows */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="min-h-screen bg-neutral-950 text-gray-200 selection:bg-violet-500/30 font-sans relative">
+      {/* ✅ Subtle Background Decorative Glows */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-violet-900/20 blur-[120px] rounded-full" />
         <div className="absolute top-[20%] -right-[10%] w-[30%] h-[30%] bg-blue-900/10 blur-[120px] rounded-full" />
       </div>
 
-      <Navbar />
+      <div className="relative z-10">
+        <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative px-8 pt-32 pb-20">
-        <div className="max-w-7xl mx-auto text-center">
-     
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500">
-            Download <br />Velvex
-          </h1>
-          <p className="text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            Download the high-performance compiler for velvet. 
-            Production-ready binaries and nightly builds for every platform.
-          </p>
-        </div>
-      </section>
+        <section className="relative px-8 pt-48 pb-20">
+          <div className="max-w-7xl mx-auto text-center">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500">
+              Download Velvex
+            </h1>
+            <p className="text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+              The high-performance compiler for Velvet. Optimized for efficiency, 
+              built for mathematical precision.
+            </p>
+          </div>
+        </section>
 
-      {/* Main Download Grid */}
-      <section className="px-8 py-12 relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-6 mb-12">
+        {/* 🚀 Dual Action Section */}
+        <section className="px-8 py-12">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
             
-            {/* Stable Release Card */}
-            <div className="lg:col-span-3 group relative overflow-hidden bg-neutral-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-blue-500/30 transition-all duration-500">
-              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+            {/* Stable (LTS) Card - Added overflow-visible and dynamic z-index to fix layering */}
+            <div className={`bg-neutral-900/40 backdrop-blur-xl border border-white/5 rounded-[32px] p-10 relative group overflow-visible transition-all ${isLtsOpen ? 'z-50' : 'z-10'}`}>
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <ShieldCheck className="w-32 h-32 text-blue-500" />
               </div>
-              
               <div className="relative">
-                <span className="text-blue-400 text-sm font-bold tracking-widest uppercase">Stable</span>
-                <h2 className="text-4xl font-bold mt-2 mb-4">Long Term Support</h2>
-                <p className="text-neutral-400 mb-8 max-w-md">
-                  Validated builds with Long Term Support. Recommended for smooth, bug free experience.
+                <div className="flex items-center gap-2 text-blue-400 text-xs font-bold tracking-widest uppercase mb-4">
+                  <ShieldCheck className="w-4 h-4" /> Recommended
+                </div>
+                <h2 className="text-4xl font-bold mb-4">Stable Release</h2>
+                <p className="text-neutral-400 mb-10 text-sm leading-relaxed">
+                  Validated builds for production environments. <br/>
+                  Latest: **v1.2.0** (Feb 13, 2026)
                 </p>
-                
-                <div className="flex flex-wrap gap-4">
-                  <button className="flex-1 min-w-[200px] bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl transition-all font-semibold flex items-center justify-center gap-3 shadow-lg shadow-blue-600/20">
-                    <Download className="w-5 h-5" />
-                    Download for Windows
+
+                <div className="flex items-stretch shadow-2xl shadow-blue-500/10">
+                  <button className="flex-1 flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-5 rounded-l-2xl transition-all">
+                    {ltsPlatform.icon}
+                    Download for {ltsPlatform.label}
                   </button>
-                  <button className="px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all font-medium flex items-center gap-2">
-                    Linux .deb
-                  </button>
+                  <div className="relative">
+                    <button onClick={() => setIsLtsOpen(!isLtsOpen)} className="h-full px-4 bg-blue-700 hover:bg-blue-600 border-l border-white/10 rounded-r-2xl text-white transition-all">
+                      <ChevronDown className={`w-5 h-5 transition-transform ${isLtsOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isLtsOpen && (
+                      <div className="absolute top-full right-0 mt-2 w-56 p-2 bg-neutral-900 border border-white/10 rounded-2xl z-[100] shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                        {platforms.map(p => (
+                          <button key={p.id} onClick={() => { setLtsPlatform(p); setIsLtsOpen(false); }} className="w-full flex items-center gap-3 p-3 hover:bg-white/5 rounded-xl transition-colors">
+                            <div className="text-neutral-400">{p.icon}</div>
+                            <div className="text-left">
+                              <p className="text-sm font-bold text-white">{p.label}</p>
+                              <p className="text-[10px] text-neutral-500 uppercase">{p.sub}</p>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <p className="mt-4 text-xs text-neutral-500 flex items-center gap-2">
-                  <Check className="w-3 h-3 text-blue-500" /> Latest: v1.2.0 (Feb 7, 2026)
+              </div>
+            </div>
+
+            {/* Nightly (Experimental) Card - Added overflow-visible and dynamic z-index */}
+            <div className={`bg-neutral-900/40 backdrop-blur-xl border border-white/5 rounded-[32px] p-10 relative group overflow-visible transition-all ${isNightlyOpen ? 'z-50' : 'z-10'}`}>
+               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity text-amber-500">
+                <Zap className="w-32 h-32" />
+              </div>
+              <div className="relative">
+                <div className="flex items-center gap-2 text-amber-500 text-xs font-bold tracking-widest uppercase mb-4">
+                  <Zap className="w-4 h-4" /> Bleeding Edge
+                </div>
+                <h2 className="text-4xl font-bold mb-4">Nightly Build</h2>
+                <p className="text-neutral-400 mb-10 text-sm leading-relaxed">
+                  Experience the latest features and optimizations. <br/>
+                  Build: **v1.2.1-alpha** (Automated)
                 </p>
-              </div>
-            </div>
 
-            {/* Nightly Build Card */}
-            <div className="lg:col-span-2 group relative overflow-hidden bg-neutral-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-amber-500/30 transition-all duration-500">
-              <span className="text-amber-500 text-sm font-bold tracking-widest uppercase">Nightly</span>
-              <h2 className="text-3xl font-bold mt-2 mb-4">Experimental Build</h2>
-              <p className="text-neutral-400 mb-8">
-                Test the latest optimizations and language experimental features.
-              </p>
-              
-              <button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white px-6 py-4 rounded-2xl transition-all font-semibold flex items-center justify-center gap-3 border border-white/5">
-                <Terminal className="w-5 h-5 text-amber-500" />
-                Get Latest Nightly
-              </button>
-              <div className="mt-6 pt-6 border-t border-white/5">
-                 <div className="flex justify-between text-sm">
-                    <span className="text-neutral-500 text-xs">v1.2.1</span>
-                    <span className="text-amber-500/80 tracking-tighter">●●●○○</span>
-                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Platform Detail Section */}
-          <div className="bg-neutral-900/20 backdrop-blur-md border border-white/5 rounded-[32px] p-4 md:p-10">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
-              <div>
-                <h3 className="text-2xl font-bold mb-2">Cross-platform Binaries</h3>
-                <p className="text-neutral-500 text-sm">Select your architecture to see available formats.</p>
-              </div>
-              
-              <div className="flex p-1 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-xl">
-                {["windows", "Web Assembly", "linux", "source"].map((os) => (
-                  <button
-                    key={os}
-                    onClick={() => setSelectedOS(os)}
-                    className={`px-6 py-2 rounded-xl text-sm font-medium transition-all ${
-                      selectedOS === os 
-                      ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20" 
-                      : "text-neutral-500 hover:text-white"
-                    }`}
-                  >
-                    {os.charAt(0).toUpperCase() + os.slice(1)}
+                <div className="flex items-stretch shadow-2xl shadow-amber-500/10">
+                  <button className="flex-1 flex items-center justify-center gap-3 bg-neutral-100 hover:bg-white text-neutral-950 font-bold py-5 rounded-l-2xl transition-all">
+                    {nightlyPlatform.icon}
+                    Get {nightlyPlatform.label} Build
                   </button>
-                ))}
+                  <div className="relative">
+                    <button onClick={() => setIsNightlyOpen(!isNightlyOpen)} className="h-full px-4 bg-neutral-200 hover:bg-white border-l border-black/10 rounded-r-2xl text-neutral-950 transition-all">
+                      <ChevronDown className={`w-5 h-5 transition-transform ${isNightlyOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isNightlyOpen && (
+                      <div className="absolute top-full right-0 mt-2 w-56 p-2 bg-neutral-900 border border-white/10 rounded-2xl z-[100] shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                        {platforms.map(p => (
+                          <button key={p.id} onClick={() => { setNightlyPlatform(p); setIsNightlyOpen(false); }} className="w-full flex items-center gap-3 p-3 hover:bg-white/5 rounded-xl transition-colors">
+                            <div className="text-neutral-400">{p.icon}</div>
+                            <div className="text-left text-white">
+                              <p className="text-sm font-bold">{p.label}</p>
+                              <p className="text-[10px] text-neutral-500 uppercase">{p.sub}</p>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 🛠 Requirements & Verification */}
+        <section className="px-8 py-20 relative z-0">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Requirements List */}
+            <div>
+              <h3 className="text-2xl font-bold mb-8">Hardware Specification</h3>
+              <div className="grid grid-cols-2 gap-y-10 gap-x-6">
+                <SpecItem label="CPU" value="x86_64 / ARM64" sub="AVX-512 Support" />
+                <SpecItem label="Memory" value="256MB RAM" sub="10MB Min Overhead" />
+                <SpecItem label="Storage" value="50MB Free" sub="Static Linked Binary" />
+                <SpecItem label="OS" value="Win / Linux" sub="Unix-like Shell Rec." />
               </div>
             </div>
 
-            <div className="grid gap-4">
-               {/* Simplified mapping for demo */}
-               <DownloadRow 
-                icon={<Package className="w-5 h-5 text-violet-400" />}
-                title={selectedOS === "windows" ? "Windows Installer (x64)" : "Universal Binary"}
-                meta="45.2 MB • SHA-256 Verified"
-                isPrimary
-               />
-               <DownloadRow 
-                icon={<FileCode className="w-5 h-5 text-neutral-400" />}
-                title="Portable Archive (.zip)"
-                meta="42.8 MB • Standalone"
-               />
+            {/* Verification Code Block */}
+            <div className="bg-black/60 rounded-3xl border mt-20 border-white/10 p-8 shadow-2xl backdrop-blur-xl">
+               <div className="flex justify-between items-center mb-6">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50" />
+                  </div>
+                  <button onClick={copyCmd} className="text-neutral-500 hover:text-white transition-colors">
+                    {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                  </button>
+               </div>
+               <p className="text-xs font-bold text-violet-500 uppercase tracking-widest mb-4">Verification</p>
+               <code className="text-lg font-mono leading-relaxed block text-white">
+                  <span className="text-neutral-600 mr-3">$</span>velvex --version <br/>
+                  <span className="text-neutral-400">Velvex version 1.2.0 LTS</span>
+               </code>
+               <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-3 text-xs text-neutral-500">
+                  <ShieldAlert className="w-4 h-4" /> Ensure path is updated after install.
+               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Package Managers - Terminal Style */}
-      <section className="px-8 py-20">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10 tracking-tight text-center md:text-left">Quick Install</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <TerminalBox label="npm" cmd="npm install -g velvex" copyFn={copyToClipboard} copied={copied} />
-            <TerminalBox label="brew" cmd="brew install velvex" copyFn={copyToClipboard} copied={copied} />
-            <TerminalBox label="cargo" cmd="cargo install velvex" copyFn={copyToClipboard} copied={copied} />
-            <TerminalBox label="scoop" cmd="scoop install velvex" copyFn={copyToClipboard} copied={copied} />
-          </div>
-        </div>
-      </section>
-
-      {/* Minimal Requirements */}
-      <section className="px-8 py-20 border-t border-white/5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-center">
-            <div className="md:w-1/3">
-                <h2 className="text-3xl font-bold mb-4">System Requirements</h2>
-                <p className="text-neutral-500">Velvex is optimized for both legacy and modern instruction sets (AVX-512 supported).</p>
-            </div>
-            <div className="md:w-2/3 grid grid-cols-2 gap-8 w-full">
-                <div className="space-y-1">
-                    <p className="text-xs font-bold text-violet-500 uppercase tracking-widest">Memory</p>
-                    <p className="text-xl font-medium">256MB RAM</p>
-                </div>
-                <div className="space-y-1">
-                    <p className="text-xs font-bold text-violet-500 uppercase tracking-widest">Storage</p>
-                    <p className="text-xl font-medium">50MB Space</p>
-                </div>
-                <div className="space-y-1">
-                    <p className="text-xs font-bold text-violet-500 uppercase tracking-widest">Processor</p>
-                    <p className="text-xl font-medium">x86_64 / ARM64</p>
-                </div>
-                <div className="space-y-1">
-                    <p className="text-xs font-bold text-violet-500 uppercase tracking-widest">OS</p>
-                    <p className="text-xl font-medium">Windows / Linux</p>
-                </div>
-            </div>
-        </div>
-      </section>
-
-      <footer className="py-20 px-8 border-t border-white/5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center">
-                    <div className="w-4 h-4 bg-white rotate-45" />
-                </div>
-                <span className="text-xl font-bold tracking-tighter">VELVEX</span>
-            </div>
-            <div className="flex gap-10 text-sm font-medium text-neutral-500">
-                <a href="#" className="hover:text-white transition-colors">Docs</a>
-                <a href="#" className="hover:text-white transition-colors">GitHub</a>
-                <a href="#" className="hover:text-white transition-colors">Changelog</a>
-                <a href="#" className="hover:text-white transition-colors">Twitter</a>
-            </div>
-            <p className="text-xs text-neutral-600">© 2026 Velvex Foundation.</p>
-        </div>
-      </footer>
+        <footer className="py-20 text-center text-xs text-neutral-600">
+          © 2026 Velvex Foundation. Optimized for Velvet Performance.
+        </footer>
+      </div>
     </div>
   );
 }
 
-// Sub-components for cleaner structure
-function DownloadRow({ icon, title, meta, isPrimary = false }) {
+function SpecItem({ label, value, sub }) {
   return (
-    <div className={`group flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-2xl border transition-all ${isPrimary ? 'bg-white/5 border-white/10 hover:border-violet-500/40' : 'bg-transparent border-white/5 hover:border-white/10'}`}>
-      <div className="flex items-center gap-4 mb-4 md:mb-0">
-        <div className="p-3 bg-black/40 rounded-xl border border-white/5 group-hover:scale-110 transition-transform">
-          {icon}
-        </div>
-        <div>
-          <h4 className="font-semibold text-lg">{title}</h4>
-          <p className="text-sm text-neutral-500">{meta}</p>
-        </div>
-      </div>
-      <button className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${isPrimary ? 'bg-violet-600 text-white hover:bg-violet-500' : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'}`}>
-        Download
-      </button>
-    </div>
-  );
-}
-
-function TerminalBox({ label, cmd, copyFn, copied }) {
-  return (
-    <div className="bg-black/40 border border-white/5 rounded-2xl p-5 backdrop-blur-xl group hover:border-violet-500/30 transition-all">
-      <div className="flex justify-between items-center mb-3">
-        <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-[2px]">{label}</span>
-        <button 
-          onClick={() => copyFn(cmd)}
-          className="p-1.5 hover:bg-white/5 rounded-md transition-colors text-neutral-500 hover:text-violet-400"
-        >
-          {copied === cmd ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-        </button>
-      </div>
-      <code className="text-sm font-mono text-neutral-300 block overflow-hidden text-ellipsis whitespace-nowrap">
-        <span className="text-violet-500 mr-2">$</span>{cmd}
-      </code>
+    <div className="group">
+      <p className="text-[10px] font-bold text-violet-500 uppercase tracking-[2px] mb-1">{label}</p>
+      <p className="text-xl font-bold text-white mb-1">{value}</p>
+      <p className="text-xs text-neutral-500 group-hover:text-neutral-400 transition-colors">{sub}</p>
     </div>
   );
 }
