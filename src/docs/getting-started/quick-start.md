@@ -143,5 +143,101 @@ Diff[^n f(x,y)][y^2,x^[n-2]] __ Txt[and] __ Pdiff[^n f(x,y)][y^2,x^[n-2]]
 ---
 ### Integrals
 
+Integrals are defined with the **Integ** function
+
+```velvet
+Integ[degree][main expression][comma separated secondary expression list][comma separated list of lower_limit->higher_limit]
+```
+
+**Degree**: Represents the order of integral, it must be a positive integer (floating point numbers are rounded down to the nearest integer) as this determines the integration order
+
+**Main Expression**: This is the Expression that is to be integrated.
+
+**Secondary Expression(s) (comma separated)**: If the degree is greater than 1, then corresponding functions can be passed to the this segment separated by a comma ',' in order [1st, 2nd, 3rd, ...]. If the degree is greater than the list of secondary expressions, then the last expression will be used to pad the missing entries. 
+
+**Limits (for Definite Integrals)**: If the integral is definite, then 'limit pair(s)' of integration are provided to the last segment.
+
+```velvet
+Integ[2][y][x,y][0->1,1->2]
+```
+
+```math
+\int_{0}^{1} \int_{1}^{2} y \, dx  \, dy 
+```
+
+A limit pair is defined as 
+
+```velvet
+Ignore[a limit pair is: lowerLimit->upperLimit]
+
+Ignore[
+eg:
+0->1
+-Inf->Inf
+Zeta->Alpha
+]
+
+Integ[1][g(x)][x][Alpha->Inf]
+```
+
+```math
+\int_{\alpha}^{\infty} g(x) \, dx 
+```
+
+If the limit pair segment is not passed to **Integ** function, then it is considered as an indefinite integral.
+
+```velvet
+Integ[2][y][x,y]
+```
+
+```math
+\iint y \, dx  \, dy 
+```
+
+---
+
+### Limits
+
+Limits are represented as:
+
+```velvet
+Ignore[
+Lim[lowerLimitExpression->upperLimitExpression]
+]
+
+Lim[x->Inf] Frac[sin(x)][x] = 0
+```
+
+```math
+\lim_{ x \to  \infty } \, \frac{sin(x)}{x} = 0
+```
+---
+
+### Summation & Product
+
+Summations and Products are represented as:
+
+```velvet
+Ignore[
+Sum[lowerLimitExpression->upperLimitExpression]
+]
+Ignore[
+Prod[lowerLimitExpression->upperLimitExpression]
+]
+
+(Sum[i=0->5] __ x_i) = (Prod[k=0->Inf] __ y_k)
+```
+
+```math
+\left(\sum_{ i = 0}^{ 5} \,  \,\,\,  x _i\right) =\left(\prod_{ k = 0}^{ \infty } \,  \,\,\,  y _k\right)
+```
+
+---
+
+### Piecewise Functions
+
+Piecewise functions
+
+
 ### **Next Steps**
 Ready to dive deeper? Check out the **[Type System](/docs/core-concepts/type-system)** to see how Velvet handles complex mathematical sets and spaces.
