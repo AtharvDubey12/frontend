@@ -555,14 +555,17 @@ Geometric[p][q][r]
 ### Exponential Series
 
 ``` velvet
-ExpSeries[x][upper_limit]
+Exponential[x][upper_limit]
 ```
 
 ``` velvet
-ExpSeries
-ExpSeries[x][n]
+Exponential
+Exponential[a][b]
 ```
-
+```math
+e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}  \\ 
+e^{a} = \sum_{n=0}^{b} \frac{a^n}{n!} 
+```
 ------------------------------------------------------------------------
 
 ### Sine Series
