@@ -71,9 +71,79 @@ Txt[This is]__Txt[Incorrect! as "__" doesn't have a leading and preceeding space
 ```Velvet
 Txt[This is] __ Txt[Correct as "__" must be used as " __ "]
 ```
+---
+### Writing LaTeX within Velvet
 
+You can write raw LaTeX code within a velvet file using **Raw** function.
+
+```velvet
+Raw[
+\,\frac{x}{2} \\ \\ 
+\text{Hello}
+]
+```
+
+```math
+\,\frac{x}{2} \\ \\ 
+\text{Hello}
+```
+
+Use this function if you need to use a LaTeX feature that is not yet available in velvet.
 
 ---
+### Importing LaTeX Packages
+
+You can import any LaTeX package in velvet code using two main ways:
+
+1. Use **Import** function
+
+```velvet
+Import[amsmath, amssymb]
+```
+
+2. Use **Raw** function to directly write LaTeX
+
+```velvet
+Raw[
+\usepackage{amsmath}
+\usepackage{amssymb}
+]
+```
+
+Both methods produce identical results. The Import function is recommended for syntactic consistency with the rest of Velvet.
+
+---
+### Static Mutable Macros
+
+You can define a non parameterized mutable macro using **Let** function, using the syntax:
+
+```velvet
+Let[macroName][expression]
+```
+
+While defining macros, one must ensure the naming rules are followed:
+
+1. The macro name cannot contain operators: '+', '-', '*', '/', '_' and '^'.
+2. The macro name cannot contain spaces or other whitespace characters within.
+3. The macro name cannot be a keyword.
+
+```velvet
+Let[fraction][Frac[5][2] + 6]
+fraction - 1
+
+Let[fraction][8]
+fraction + 1
+```
+renders:
+
+```math
+\frac{5}{2} + 6 - 1 \\  
+ \\ 
+ 8 + 1
+```
+
+---
+
 ## 2. Core Mathematical Functions
 Here are some of the most essential functions of Velvet:
 
@@ -255,7 +325,214 @@ sgn(x) = Piece[[1, x>0],[0, x=0],[-1, x<0]]
 ```
 ---
 
-### Matrix Representation
+### Matrices and Determinants Representation
+
+Matrices are represented by the function **Mx**, whereas Determinants are represented by the function **Dt**. Both of them follow identical syntax as represented below:
+
+```velvet
+Ignore[Mx[[row 1], [row 2], [row 3], ...]]
+Ignore[Dt[[row 1], [row 2], [row 3], ...]]
+
+A = Mx[[1,0,0],[0,1,0],[0,0,1]]
+
+|A| = Dt[[1,0,0],[0,1,0],[0,0,1]]
+```
+
+```math
+A = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{bmatrix}  \\ 
+ \\ 
+|A| = \begin{vmatrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{vmatrix}
+```
+---
+
+### Root Function
+
+Root is represented as by the **Sqrt** function:
+
+```velvet
+Sqrt[degree][main_expression]
+```
+The degree parameter is optional. If omitted, the square root (degree 2) is assumed.
+```velvet
+Sqrt[n][5] ~~ Sqrt[2][5] != Sqrt[1][Frac[5][2]] != Sqrt[5]
+```
+```math
+\sqrt[n]{5}  \approx \sqrt[2]{5}  \neq \sqrt[1]{\frac{5}{2}}  \neq \sqrt{5}
+```
+
+---
+
+## 3. Predefined Series and Expansions
+
+### Taylor Series
+
+Taylor series is represented using the **Taylor** function.
+
+``` velvet
+Taylor[expression][upper_limit][a]
+```
+
+-   **expression** → variable of the function (e.g., x)
+-   **upper_limit** → number of terms (use Inf or omit for infinite series)
+-   **a** → point of expansion
+
+If no parameters are provided, the general infinite Taylor series form
+is produced.
+
+``` velvet
+Taylor
+Taylor[x][n][a]
+```
+
+```math
+f\left(x\right) = \sum_{n=0}^{\infty}\frac{f^{\left(n\right)}\left(a\right)}{n!}\,\left(x-a\right)^n  \\ \\
+f\left(x\right) = \sum_{n=0}^{n} \frac{f^{\left(n\right)}\left(a\right)}{n!} \,\left(x-a\right)^n 
+```
+
+------------------------------------------------------------------------
+
+### Maclaurin Series
+
+Maclaurin series is a special case of Taylor series expanded about 0.\
+It is represented using the **Maclaurin** function.
+
+``` velvet
+Maclaurin[expression][upper_limit]
+```
+
+If no parameters are provided, the infinite form is generated.
+
+``` velvet
+Maclaurin
+Maclaurin[g][q]
+```
+
+```math
+f\left(x\right) = \sum_{n=0}^{\infty}\frac{f^{\left(n\right)}\left(0\right)}{n!}\,x^n  \\ 
+f\left(g\right) = \sum_{n=0}^{q} \frac{f^{\left(n\right)}\left(0\right)}{n!} \,\left(g\right)^n 
+```
+
+------------------------------------------------------------------------
+
+### Fourier Series
+
+Fourier series is represented using the **Fourier** function.
+
+``` velvet
+Fourier[expression][upper_limit][a_symbol][b_symbol]
+```
+
+-   **expression** → variable (e.g., x)
+-   **upper_limit** → number of terms
+-   **a_symbol** → cosine coefficient prefix
+-   **b_symbol** → sine coefficient prefix
+
+If no parameters are provided, the infinite general form is produced.
+
+``` velvet
+Fourier
+Fourier[x][n][a][b]
+```
+
+```math
+f\left(x\right) = \frac{a_0}{2} + \sum_{n=1}^\infty \left( a_n \cos\left(nx\right) + b_n \sin\left(nx\right)\right) \\ \\ 
+f\left(x\right) = \frac{a_0}{2} + \sum_{n=1}^{n} \left( a_n \cos\left(nx\right) + b_n \sin\left(nx\right)\right) 
+```
+
+------------------------------------------------------------------------
+
+### Dirichlet Series
+
+Dirichlet series (Riemann Zeta form) is represented using the
+**Dirichlet** function.
+
+``` velvet
+Dirichlet[expression][upper_limit]
+```
+
+If no parameters are provided, the classical infinite zeta
+representation is generated.
+
+``` velvet
+Dirichlet
+Dirichlet[s][n]
+```
+
+```math
+f\left(z\right) = \sum_{n=-\infty}^{\infty} a_n \left(z - z_0\right)^n  \\ \\
+f\left(z\right) = \sum_{n=-\infty}^{\infty} a_n \left(z - z_0\right)^n 
+```
+
+------------------------------------------------------------------------
+
+### Legendre Series
+
+Legendre series is represented using the **Legendre** function.
+
+``` velvet
+Legendre[expression][upper_limit]
+```
+
+``` velvet
+Legendre
+Legendre[p][q]
+```
+
+```math
+f\left(x\right) = \sum_{n=0}^{\infty} a_n P_n\left(x\right)  \\ \\
+f\left(p\right) = \sum_{n=0}^{q} a_n P_n\left(p\right) 
+```
+
+------------------------------------------------------------------------
+
+### Laurent Series
+
+Laurent series is represented using the **Laurent** function.
+
+``` velvet
+Laurent[expression]
+```
+
+If no parameter is provided, the general infinite Laurent expansion is
+produced.
+
+``` velvet
+Laurent
+Laurent[y]
+```
+
+```math
+f\left(z\right) = \sum_{n=-\infty}^{\infty} a_n \left(z - z_0\right)^n  \\ \\
+f\left(y\right) = \sum_{n=-\infty}^{\infty} a_n \left(y - y_0\right)^n 
+```
+
+------------------------------------------------------------------------
+
+### Binomial Expansion
+
+Binomial expansion is represented using the **Binom** function.
+
+``` velvet
+Binomial[a][b][r]
+```
+
+-   **a** → first term
+-   **b** → second term
+-   **r** → exponent
+
+``` velvet
+Binomial[x][y][z]
+```
+
+```math
+\left(x+y\right)^{z} = \sum_{n=0}^{\infty} \binom{z}{n} x^{\,z-n} y^n 
+```
+
+---
+
+## 4. Symbols
+
+
 
 ### **Next Steps**
 Ready to dive deeper? Check out the **[Type System](/docs/core-concepts/type-system)** to see how Velvet handles complex mathematical sets and spaces.
