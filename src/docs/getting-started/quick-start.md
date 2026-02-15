@@ -533,13 +533,21 @@ Binomial[x][y][z]
 
 ### Geometric Series
 
+Binomial expansion is represented using the **Geometric** function.
+
 ``` velvet
 Geometric[a][r][upper_limit]
 ```
+If no parameter is provided, a general infinite convergent Geometric Series is assumed.
 
 ``` velvet
 Geometric
-Geometric[a][r][n]
+Geometric[p][q][r]
+```
+
+```math
+\sum_{n=0}^{\infty} ar^n = \frac{a}{1-r}  \\ 
+\sum_{n=0}^{r} pq^n 
 ```
 
 ------------------------------------------------------------------------
