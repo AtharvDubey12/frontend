@@ -664,7 +664,291 @@ G\left(a\right) = \sum_{n=0}^{b} a_n a^n
 
 ## 4. Symbols
 
+The following table lists the predefined symbol keywords within **Velvet** and their corresponding **LaTeX** output. These symbols follow the **Capitalization Rule**, where built-in mathematical intent must begin with a **Capital Letter** to be recognized by the **Velvex** compiler. Moreover, every symbol must be used with a leading and preceeding space.
+
+| Velvet Keyword | LaTeX Output | Meaning |
+| :--- | :--- | :--- |
+| **<=** | \leq | Less than or equal to |
+| **>=** | \geq | Greater than or equal to |
+| **!=** | \neq | Not equal to |
+| **All** | \forall | For all |
+| **Del** | \delta | Small delta |
+| **Delta** | \Delta | Capital delta |
+| **Nabla** | \nabla | Nabla / gradient |
+| **Om** | \omega | Small omega |
+| **Omega** | \Omega | Capital omega |
+| **Zeta** | \zeta | Zeta |
+| **Inf** | \infty | Infinity |
+| **Theta** | \theta | Theta |
+| **Vtheta** | \vartheta | Variant theta |
+| **Epsilon** | \epsilon | Epsilon |
+| **Vepsilon** | \varepsilon | Variant epsilon |
+| **Alpha** | \alpha | Alpha |
+| **Beta** | \beta | Beta |
+| **Gam** | \gamma | Gamma |
+| **Gamma** | \Gamma | Capital gamma |
+| **Lambda** | \lambda | Lambda |
+| **Nu** | \nu | Nu |
+| **Pi** | \pi | Pi |
+| **~~** | \approx | Approximately equal |
+| **==** | \equiv | Equivalent |
+| **~=** | \cong | Congruent |
+| **!~=** | \ncong | Not congruent |
+| **Angle** | \angle | Angle |
+| **~>** | \rightarrow | Right arrow |
+| **<~** | \leftarrow | Left arrow |
+| **<~>** | \leftrightarrow | Left-right arrow |
+| **=>** | \Rightarrow | Implies |
+| **<=>** | \Leftrightarrow | If and only if |
+| **In** | \in | Element of |
+| **!In** | \notin | Not element of |
+| **Sub** | \subset | Subset |
+| **Sub=** | \subseteq | Subset or equal |
+| **!Sub** | \nsubseteq | Not subset |
+| **Re** | \Re | Real part |
+
+---
+
+With these basics clear, you can start writing your own velvet documents.
+Here's a full example of velvet in action.
+
+```velvet
+Txt[Derivation of Energy Conservation in a Harmonic Oscillator]
+
+Txt[Consider a particle of mass m attached to a spring with constant k.]
+
+Txt[Restoring force is proportional to displacement.]
+
+F = - k x
+
+Txt[By Newton second law.]
+
+F = m Diff[2][x][t]
+
+Txt[Equating force expressions.]
+
+m Diff[2][x][t] = - k x
+
+Txt[Multiply both sides by velocity.]
+
+m Diff[2][x][t] Diff[x][t] = - k x Diff[x][t]
+
+Txt[Observe that the left side is derivative of kinetic energy.]
+
+Diff[Frac[1][2] m (Diff[x][t])^2][t] = - k x Diff[x][t]
+
+Txt[Observe that the right side is derivative of potential energy.]
+
+- k x Diff[x][t] = - Diff[Frac[1][2] k x^2][t]
+
+Txt[Rewriting equation.]
+
+Diff[Frac[1][2] m (Diff[x][t])^2][t] + Diff[Frac[1][2] k x^2][t] = 0
+
+Txt[Combine derivatives.]
+
+Diff[Frac[1][2] m (Diff[x][t])^2 + Frac[1][2] k x^2][t] = 0
+
+Txt[Integrate with respect to time.]
+
+Integ[1][Diff[Frac[1][2] m (Diff[x][t])^2 + Frac[1][2] k x^2][t]][t] = Integ[1][0][t]
+
+Txt[Total mechanical energy is constant.]
+
+Frac[1][2] m (Diff[x][t])^2 + Frac[1][2] k x^2 = E
+
+Txt[Now rewrite system as first order matrix equation.]
+
+Diff[Mx[[x],[Diff[x][t]]]][t] = Mx[[0, 1],[-Frac[k][m], 0]] Mx[[x],[Diff[x][t]]]
+
+Txt[Coefficient matrix of the system.]
+
+Mx[[0, 1],[-Frac[k][m], 0]]
+
+Txt[Determinant of coefficient matrix.]
+
+Dt[[0, 1],[-Frac[k][m], 0]]
+
+Txt[Evaluate determinant.]
+
+Dt[[0, 1],[-Frac[k][m], 0]] = Frac[k][m]
+
+Txt[Motion depends on sign of determinant.]
+
+Piece[
+[Txt[Oscillatory motion], Frac[k][m] > 0],
+[Txt[Exponential growth or decay], Frac[k][m] < 0]
+]
+
+Txt[Angular frequency of oscillation.]
+
+Omega = Sqrt[Frac[k][m]]
+
+Txt[General solution of motion.]
+
+x = A sin(Omega t) + B cos(Omega t)
+
+Txt[Energy remains conserved throughout motion.]
+
+Frac[1][2] m (Diff[x][t])^2 + Frac[1][2] k x^2 = constant
 
 
-### **Next Steps**
-Ready to dive deeper? Check out the **[Type System](/docs/core-concepts/type-system)** to see how Velvet handles complex mathematical sets and spaces.
+```
+```latex
+\text{Derivation of Energy Conservation in a Harmonic Oscillator}  \\ 
+ \\ 
+\text{Consider a particle of mass m attached to a spring with constant k.}  \\ 
+ \\ 
+\text{Restoring force is proportional to displacement.}  \\ 
+ \\ 
+ F =  - k x \\ 
+ \\ 
+\text{By Newton second law.}  \\ 
+ \\ 
+ F = m\frac{d^2 x}{ dt^2} \\ 
+ \\ 
+\text{Equating force expressions.}  \\ 
+ \\ 
+ m\frac{d^2 x}{ dt^2} =  - k x \\ 
+ \\ 
+\text{Multiply both sides by velocity.}  \\ 
+ \\ 
+ m\frac{d^2 x}{ dt^2}\frac{dx}{dt} =  - k x\frac{dx}{dt} \\ 
+ \\ 
+\text{Observe that the left side is derivative of kinetic energy.}  \\ 
+ \\ 
+\frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2}{dt} =  - k x\frac{dx}{dt} \\ 
+ \\ 
+\text{Observe that the right side is derivative of potential energy.}  \\ 
+ \\ 
+ - k x\frac{dx}{dt} =  -\frac{d\frac{1}{2} k x ^2}{dt} \\ 
+ \\ 
+\text{Rewriting equation.}  \\ 
+ \\ 
+\frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2}{dt} +\frac{d\frac{1}{2} k x ^2}{dt} = 0 \\ 
+ \\ 
+\text{Combine derivatives.}  \\ 
+ \\ 
+\frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2}{dt} = 0 \\ 
+ \\ 
+\text{Integrate with respect to time.}  \\ 
+ \\ 
+\int \frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2}{dt} \, dt  =\int 0 \, dt  \\ 
+ \\ 
+\text{Total mechanical energy is constant.}  \\ 
+ \\ 
+\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2 = E \\ 
+ \\ 
+\text{Now rewrite system as first order matrix equation.}  \\ 
+ \\ 
+\frac{d\begin{bmatrix} x \\ \frac{dx}{dt}\end{bmatrix}}{dt} =\begin{bmatrix} 0 & 1 \\ -\frac{k}{m} & 0\end{bmatrix} \begin{bmatrix} x \\ \frac{dx}{dt}\end{bmatrix}  \\ 
+ \\ 
+\text{Coefficient matrix of the system.}  \\ 
+ \\ 
+\begin{bmatrix} 0 & 1 \\ -\frac{k}{m} & 0\end{bmatrix}  \\ 
+ \\ 
+\text{Determinant of coefficient matrix.}  \\ 
+ \\ 
+\begin{vmatrix}0 & 1 \\ -\frac{k}{m} & 0\end{vmatrix} \\ 
+ \\ 
+\text{Evaluate determinant.}  \\ 
+ \\ 
+\begin{vmatrix}0 & 1 \\ -\frac{k}{m} & 0\end{vmatrix} =\frac{k}{m} \\ 
+ \\ 
+\text{Motion depends on sign of determinant.}  \\ 
+ \\ 
+\begin{cases} \\ 
+\text{Oscillatory motion} & \frac{k}{m} > 0 \\ \\ 
+\text{Exponential growth or decay} & \frac{k}{m} < 0 \\  \end{cases} \\ 
+ \\ 
+\text{Angular frequency of oscillation.}  \\ 
+ \\ 
+ \Omega  =\sqrt{\frac{k}{m}}  \\ 
+ \\ 
+\text{General solution of motion.}  \\ 
+ \\ 
+ x = A\cos\left(\Omega  t\right) = \sum_{n=0}^{\infty} \left(-1\right)^n \frac{\Omega  t^{2n}}{\left(2n\right)!}  + B\sin\left(\Omega  t\right) = \sum_{n=0}^{\infty} \left(-1\right)^n \frac{\Omega  t^{2n+1}}{\left(2n+1\right)!}  \\ 
+ \\ 
+\text{Energy remains conserved throughout motion.}  \\ 
+ \\ 
+\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2 = constant
+```
+```math
+\text{Derivation of Energy Conservation in a Harmonic Oscillator}  \\ 
+ \\ 
+\text{Consider a particle of mass m attached to a spring with constant k.}  \\ 
+ \\ 
+\text{Restoring force is proportional to displacement.}  \\ 
+ \\ 
+ F =  - k x \\ 
+ \\ 
+\text{By Newton second law.}  \\ 
+ \\ 
+ F = m\frac{d^2 x}{ dt^2} \\ 
+ \\ 
+\text{Equating force expressions.}  \\ 
+ \\ 
+ m\frac{d^2 x}{ dt^2} =  - k x \\ 
+ \\ 
+\text{Multiply both sides by velocity.}  \\ 
+ \\ 
+ m\frac{d^2 x}{ dt^2}\frac{dx}{dt} =  - k x\frac{dx}{dt} \\ 
+ \\ 
+\text{Observe that the left side is derivative of kinetic energy.}  \\ 
+ \\ 
+\frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2}{dt} =  - k x\frac{dx}{dt} \\ 
+ \\ 
+\text{Observe that the right side is derivative of potential energy.}  \\ 
+ \\ 
+ - k x\frac{dx}{dt} =  -\frac{d\frac{1}{2} k x ^2}{dt} \\ 
+ \\ 
+\text{Rewriting equation.}  \\ 
+ \\ 
+\frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2}{dt} +\frac{d\frac{1}{2} k x ^2}{dt} = 0 \\ 
+ \\ 
+\text{Combine derivatives.}  \\ 
+ \\ 
+\frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2}{dt} = 0 \\ 
+ \\ 
+\text{Integrate with respect to time.}  \\ 
+ \\ 
+\int \frac{d\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2}{dt} \, dt  =\int 0 \, dt  \\ 
+ \\ 
+\text{Total mechanical energy is constant.}  \\ 
+ \\ 
+\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2 = E \\ 
+ \\ 
+\text{Now rewrite system as first order matrix equation.}  \\ 
+ \\ 
+\frac{d\begin{bmatrix} x \\ \frac{dx}{dt}\end{bmatrix}}{dt} =\begin{bmatrix} 0 & 1 \\ -\frac{k}{m} & 0\end{bmatrix} \begin{bmatrix} x \\ \frac{dx}{dt}\end{bmatrix}  \\ 
+ \\ 
+\text{Coefficient matrix of the system.}  \\ 
+ \\ 
+\begin{bmatrix} 0 & 1 \\ -\frac{k}{m} & 0\end{bmatrix}  \\ 
+ \\ 
+\text{Determinant of coefficient matrix.}  \\ 
+ \\ 
+\begin{vmatrix}0 & 1 \\ -\frac{k}{m} & 0\end{vmatrix} \\ 
+ \\ 
+\text{Evaluate determinant.}  \\ 
+ \\ 
+\begin{vmatrix}0 & 1 \\ -\frac{k}{m} & 0\end{vmatrix} =\frac{k}{m} \\ 
+ \\ 
+\text{Motion depends on sign of determinant.}  \\ 
+ \\ 
+\begin{cases} \\ 
+\text{Oscillatory motion} & \frac{k}{m} > 0 \\ \\ 
+\text{Exponential growth or decay} & \frac{k}{m} < 0 \\  \end{cases} \\ 
+ \\ 
+\text{Angular frequency of oscillation.}  \\ 
+ \\ 
+ \Omega  =\sqrt{\frac{k}{m}}  \\ 
+ \\ 
+\text{General solution of motion.}  \\ 
+ \\ 
+ x = A sin \left( \Omega  t \right)  + B cos \left( \Omega  t \right) \\   \\ 
+ \\ 
+\text{Energy remains conserved throughout motion.}  \\ 
+ \\ 
+\frac{1}{2} m \left(\frac{dx}{dt} \right) ^2 +\frac{1}{2} k x ^2 = constant
+```

@@ -58,7 +58,7 @@ export default function DocPage() {
       return (
         <h1
           id={id}
-          className="text-5xl font-bold tracking-tight mb-8 bg-clip-text text-transparent bg-linear-to-b from-white to-neutral-400"
+          className="text-5xl font-bold tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500"
         >
           {children}
         </h1>
@@ -101,6 +101,26 @@ export default function DocPage() {
     li: ({ children }) => <li className="leading-relaxed">{children}</li>,
     hr: () => <hr className="border-white/10 my-12" />,
 
+    // ✅ Table Mapping - Restoring the premium look to your Symbols dictionary
+    table: ({ children }) => (
+      <div className="my-8 overflow-hidden rounded-2xl border border-white/5 bg-neutral-900/40 backdrop-blur-xl">
+        <table className="w-full border-collapse text-left text-sm">
+          {children}
+        </table>
+      </div>
+    ),
+    thead: ({ children }) => <thead className="bg-white/5">{children}</thead>,
+    th: ({ children }) => (
+      <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-violet-400">
+        {children}
+      </th>
+    ),
+    td: ({ children }) => (
+      <td className="border-t border-white/5 px-6 py-4 text-neutral-300">
+        {children}
+      </td>
+    ),
+
     // ----------------------------------
     // Code Blocks
     // ----------------------------------
@@ -127,7 +147,7 @@ export default function DocPage() {
 
       if (!inline) {
         return (
-          <div className="my-8 bg-neutral-900/50 border border-white/5 rounded-2xl overflow-hidden text-sm shadow-xl">
+          <div className="my-8 bg-neutral-900/50 border border-white/5 rounded-2xl overflow-hidden text-sm shadow-xl relative z-10">
             <div className="bg-white/5 px-4 py-2 border-b border-white/5 flex justify-between items-center">
               <span className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">
                 {language || "code"}
