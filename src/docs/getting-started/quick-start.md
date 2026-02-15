@@ -528,7 +528,98 @@ Binomial[x][y][z]
 \left(x+y\right)^{z} = \sum_{n=0}^{\infty} \binom{z}{n} x^{\,z-n} y^n 
 ```
 
----
+
+------------------------------------------------------------------------
+
+### Geometric Series
+
+``` velvet
+Geometric[a][r][upper_limit]
+```
+
+``` velvet
+Geometric
+Geometric[a][r][n]
+```
+
+------------------------------------------------------------------------
+
+### Exponential Series
+
+``` velvet
+ExpSeries[x][upper_limit]
+```
+
+``` velvet
+ExpSeries
+ExpSeries[x][n]
+```
+
+------------------------------------------------------------------------
+
+### Sine Series
+
+``` velvet
+SinSeries[x][upper_limit]
+```
+
+``` velvet
+SinSeries
+SinSeries[x][n]
+```
+
+------------------------------------------------------------------------
+
+### Cosine Series
+
+``` velvet
+CosSeries[x][upper_limit]
+```
+
+``` velvet
+CosSeries
+CosSeries[x][n]
+```
+
+------------------------------------------------------------------------
+
+### Logarithmic Series
+
+``` velvet
+LogSeries[x][upper_limit]
+```
+
+``` velvet
+LogSeries
+LogSeries[x][n]
+```
+
+------------------------------------------------------------------------
+
+### Power Series (General Form)
+
+``` velvet
+PowerSeries[x][a][upper_limit]
+```
+
+``` velvet
+PowerSeries
+PowerSeries[x][a][n]
+```
+
+------------------------------------------------------------------------
+
+### Generating Function
+
+``` velvet
+GenFunc[x][upper_limit]
+```
+
+``` velvet
+GenFunc
+GenFunc[x][n]
+```
+
 
 ## 4. Symbols
 
