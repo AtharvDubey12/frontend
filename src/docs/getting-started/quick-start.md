@@ -234,10 +234,28 @@ Prod[lowerLimitExpression->upperLimitExpression]
 
 ---
 
-### Piecewise Functions
+### Piecewise Function
 
-Piecewise functions
+Piecewise functions are handled by the **Piece** function.
+Its syntax is as follows:
+```velvet
+Piece[[value, condition],[value, condition],...]
+```
+Each value and condition are passed as a sub segment.
+For example:
+```velvet
+Txt[The signum function is defined as:]
 
+sgn(x) = Piece[[1, x>0],[0, x=0],[-1, x<0]]
+```
+
+```math
+\text{The signum function is defined as: } \\ \\
+ sgn \left( x \right)  =\begin{cases} 1 & x > 0 \\ 0 & x = 0 \\ - 1 & x < 0 \end{cases}
+```
+---
+
+### Matrix Representation
 
 ### **Next Steps**
 Ready to dive deeper? Check out the **[Type System](/docs/core-concepts/type-system)** to see how Velvet handles complex mathematical sets and spaces.
