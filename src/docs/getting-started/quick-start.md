@@ -557,6 +557,7 @@ Geometric[p][q][r]
 ``` velvet
 Exponential[x][upper_limit]
 ```
+If no parameter is provided, a general infinite Exponential Series is assumed.
 
 ``` velvet
 Exponential
@@ -571,12 +572,18 @@ e^{a} = \sum_{n=0}^{b} \frac{a^n}{n!}
 ### Sine Series
 
 ``` velvet
-SinSeries[x][upper_limit]
+Sine[x][upper_limit]
 ```
 
 ``` velvet
-SinSeries
-SinSeries[x][n]
+Sine
+
+Sine[r][c]
+```
+
+```math
+\sin x = \sum_{n=0}^{\infty} \left(-1\right)^n \frac{x^{2n+1}}{\left(2n+1\right)!}  \\ \\
+\sin\left(r\right) = \sum_{n=0}^{c} \left(-1\right)^n \frac{r^{2n+1}}{\left(2n+1\right)!} 
 ```
 
 ------------------------------------------------------------------------
@@ -584,12 +591,17 @@ SinSeries[x][n]
 ### Cosine Series
 
 ``` velvet
-CosSeries[x][upper_limit]
+Cosine[x][upper_limit]
 ```
 
 ``` velvet
-CosSeries
-CosSeries[x][n]
+Cosine
+Cosine[r][c]
+```
+
+```math
+\cos x = \sum_{n=0}^{\infty} \left(-1\right)^n \frac{x^{2n}}{\left(2n\right)!}  \\ 
+\cos\left(r\right) = \sum_{n=0}^{c} \left(-1\right)^n \frac{r^{2n}}{\left(2n\right)!} 
 ```
 
 ------------------------------------------------------------------------
@@ -597,12 +609,18 @@ CosSeries[x][n]
 ### Logarithmic Series
 
 ``` velvet
-LogSeries[x][upper_limit]
+Logarithm[x][upper_limit]
 ```
 
 ``` velvet
-LogSeries
-LogSeries[x][n]
+Logarithm
+
+Logarithm[x][n]
+```
+
+```math
+\ln\left(1+x\right) = \sum_{n=1}^{\infty} \left(-1\right)^{n+1} \frac{x^n}{n} \\  \\ 
+\ln\left(1+x\right) = \sum_{n=1}^{n} \left(-1\right)^{n+1} \frac{x^n}{n} 
 ```
 
 ------------------------------------------------------------------------
@@ -610,12 +628,18 @@ LogSeries[x][n]
 ### Power Series (General Form)
 
 ``` velvet
-PowerSeries[x][a][upper_limit]
+Power[x][a][upper_limit]
 ```
 
 ``` velvet
-PowerSeries
-PowerSeries[x][a][n]
+Power
+
+Power[p][q][r]
+```
+
+```math
+\sum_{n=0}^{\infty} a_n \left(x-a\right)^n \\  \\ 
+\sum_{n=0}^{r} a_n \left(p-q\right)^n 
 ```
 
 ------------------------------------------------------------------------
@@ -623,14 +647,20 @@ PowerSeries[x][a][n]
 ### Generating Function
 
 ``` velvet
-GenFunc[x][upper_limit]
+General[x][upper_limit]
 ```
 
 ``` velvet
-GenFunc
-GenFunc[x][n]
+General
+
+General[a][b]
 ```
 
+```math
+G\left(x\right) = \sum_{n=0}^{\infty} a_n x^n  \\ \\
+G\left(a\right) = \sum_{n=0}^{b} a_n a^n 
+```
+---
 
 ## 4. Symbols
 

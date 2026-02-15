@@ -5,7 +5,7 @@ Prism.languages.velvex = {
     pattern: /Ignore\[[\s\S]*?\]/,
     greedy: true
   },
-  'keyword': /\b(Frac|Pdiff|Diff|Integ|Sqrt|Mx|Dt|Txt|Piecewise|Taylor|Inf|Bold|Omega|Om|__|Zeta|Pi|Vec|Let|Alpha|Piece|Sum|Prod)|Raw|Import|Maclaurin\b/,
+  'keyword': /\b(Frac|Pdiff|Diff|Integ|Sqrt|Mx|Dt|Txt|Piecewise|Taylor|Inf|Bold|Omega|Om|__|Zeta|Pi|Vec|Let|Alpha|Piece|Sum|Prod)|Raw|Import|Maclaurin|Exponential|Sine|Geometric|Cosine|Logarithm|Power|General\b/,
   "operator": /->|=>|<=>|==|~=|~~|!=|<=|>=|!~=|[=+*/^_-]/,
   'punctuation': /[\[\](),]/,
   'variable': /\b[a-z]\b/i,
