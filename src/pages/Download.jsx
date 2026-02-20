@@ -15,13 +15,13 @@ import {
 import Navbar from "../components/Navbar";
 
 
-const handleDownload = () => {
+const handleDownload = (platform) => {
   let downloadUrl = "";
 
-  if (ltsPlatform.label === "Windows") {
+  if (platform === "Windows") {
     downloadUrl =
       "https://github.com/AtharvDubey12/velveX-cpp/releases/download/v1.2.0/Velvex_Installer_Win.exe";
-  } else if (ltsPlatform.label === "WASM SDK") {
+  } else if (platform === "WASM SDK") {
     downloadUrl =
       "https://github.com/AtharvDubey12/velveX-cpp/releases/download/v1.2.0/Velvex_WASM_SDK.zip";
   }
@@ -92,7 +92,7 @@ export default function VelvexDownloads() {
                 </p>
 
                 <div className="flex items-stretch shadow-2xl shadow-blue-500/10">
-                  <button onClick={handleDownload} className="flex-1 flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-5 rounded-l-2xl transition-all">
+                  <button onClick={() => handleDownload(ltsPlatform.label)} className="flex-1 flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-5 rounded-l-2xl transition-all">
                     {ltsPlatform.icon}
                     Download for {ltsPlatform.label}
                   </button>
