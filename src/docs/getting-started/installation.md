@@ -107,4 +107,4 @@ Area = \pi * r^{2}
 * **Command Not Found**: Restart your terminal after installation to refresh the Environment PATH variables.
 * **Wasm Initialization Failed**: Ensure **velvex_compiler.wasm** is served from the root directory or update the **locateFile** path in your worker.
 
-**Need more help?** Join our community on [GitHub](https://github.com/AtharvDubey12/Algorhythm) or check the [FAQ](/docs/getting-started/faq).
+**Need more help?** Join our community on [GitHub](https://github.com/AtharvDubey12/Algorhythm).

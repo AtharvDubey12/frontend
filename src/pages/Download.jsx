@@ -14,6 +14,22 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 
+
+const handleDownload = () => {
+  let downloadUrl = "";
+
+  if (ltsPlatform.label === "Windows") {
+    downloadUrl =
+      "https://github.com/AtharvDubey12/velveX-cpp/releases/download/v1.2.0/Velvex_Installer_Win.exe";
+  } else if (ltsPlatform.label === "WASM SDK") {
+    downloadUrl =
+      "https://github.com/AtharvDubey12/velveX-cpp/releases/download/v1.2.0/Velvex_WASM_SDK.zip";
+  }
+
+  window.location.href = downloadUrl;
+};
+
+
 export default function VelvexDownloads() {
   const [ltsPlatform, setLtsPlatform] = useState({ id: "windows", label: "Windows", icon: <Monitor className="w-5 h-5" /> });
   const [nightlyPlatform, setNightlyPlatform] = useState({ id: "windows", label: "Windows", icon: <Monitor className="w-5 h-5" /> });
@@ -76,7 +92,7 @@ export default function VelvexDownloads() {
                 </p>
 
                 <div className="flex items-stretch shadow-2xl shadow-blue-500/10">
-                  <button className="flex-1 flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-5 rounded-l-2xl transition-all">
+                  <button onClick={handleDownload} className="flex-1 flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-5 rounded-l-2xl transition-all">
                     {ltsPlatform.icon}
                     Download for {ltsPlatform.label}
                   </button>
@@ -186,7 +202,7 @@ export default function VelvexDownloads() {
         </section>
 
         <footer className="py-20 text-center text-xs text-neutral-600">
-          © 2026 Velvex Foundation. Optimized for Velvet Performance.
+          Built by Atharv Dubey.
         </footer>
       </div>
     </div>
