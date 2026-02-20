@@ -36,18 +36,6 @@ export default function Docs() {
               <NavItem to="/docs/getting-started/quick-start" label="Quick Start" active={isActive("quick-start")} />
             </NavGroup>
 
-            <NavGroup title="Core Concepts">
-              <NavItem to="/docs/core-concepts/type-system" label="Type System" active={isActive("type-system")} />
-              <NavItem to="/docs/core-concepts/memory-safety" label="Memory Safety" active={isActive("memory-safety")} />
-              <NavItem to="/docs/core-concepts/concurrency" label="Concurrency" active={isActive("concurrency")} />
-              <NavItem to="/docs/core-concepts/optimization-flags" label="Optimization Flags" active={isActive("optimization-flags")} />
-            </NavGroup>
-
-            <NavGroup title="Standard Library">
-              <NavItem to="/docs/std/vv-core" label="vv::core" active={isActive("vv-core")} />
-              <NavItem to="/docs/std/vv-math" label="vv::math" active={isActive("vv-math")} />
-              <NavItem to="/docs/std/vv-network" label="vv::network" active={isActive("vv-network")} />
-            </NavGroup>
           </nav>
         </aside>
 
